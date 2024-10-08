@@ -21,6 +21,18 @@ class GoogleSearchTest(unittest.TestCase):
 
         time.sleep(3)
         self.assertIn("Automation testing with Selenium", driver.title)
+        
+    def test_search_redirect(self):
+        driver = self.driver
+        driver.get("https://www.google.com")
+
+        search_box = driver.find_element(By.NAME, "q")
+        search_box.send_keys("Selenium WebDriver")
+        search_box.send_keys(Keys.RETURN)
+
+        time.sleep(3)  
+        self.assertIn("search", driver.current_url)
+
 
     def tearDown(self):
         self.driver.quit()
