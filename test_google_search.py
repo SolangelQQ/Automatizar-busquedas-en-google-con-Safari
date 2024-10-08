@@ -32,6 +32,21 @@ class GoogleSearchTest(unittest.TestCase):
 
         time.sleep(3)  
         self.assertIn("search", driver.current_url)
+        
+    def test_results_page_elements(self):
+        driver = self.driver
+        driver.get("https://www.google.com")
+
+        search_box = driver.find_element(By.NAME, "q")
+        search_box.send_keys("Automation testing with Selenium")
+        search_box.send_keys(Keys.RETURN)
+
+        time.sleep(3)  
+
+        self.assertTrue(driver.find_element(By.NAME, "q"))
+
+        results = driver.find_elements(By.CSS_SELECTOR, "h3")
+        self.assertGreater(len(results), 0, "No se encontraron resultados de búsqueda.")
 
 
     def tearDown(self):
